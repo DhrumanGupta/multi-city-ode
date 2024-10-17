@@ -1,0 +1,168 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+
+\section{Initial SIS Model}
+The inital SIS model is given by $2n^2$ ODEs:
+
+\[
+\frac{dS_{ii}}{dt} = \sum_{\substack{k=1 \\ k\neq i}}^{n} r_{ik} S_{ik} - g_{ii} S_{ii} - \sum_{k=1}^{n} \kappa_i \beta_{iki} \frac{S_{ii} I_{ki}}{N_{pi}} + d (N_{ri} - S_{ii}) + \gamma I_{ii}
+\]
+
+\[
+\frac{dI_{ii}}{dt} = \sum_{\substack{k=1 \\ k\neq i}}^{n} r_{ik} I_{ik} - g_{ii} I_{ii} + \sum_{k=1}^{n} \kappa_i \beta_{iki} \frac{S_{ii} I_{ki}}{N_{pi}} - (\gamma + d) I_{ii}
+\]
+
+And for $i \neq j$:
+
+\[
+\frac{dS_{ij}}{dt} = g_{ij} m_{ji} S_{ii} - r_{ij} S_{ij} - \sum_{k=1}^{n} \kappa_j \beta_{ikj} \frac{S_{ij} I_{kj}}{N_{pj}} - d S_{ij} + \gamma I_{ij}
+\]
+
+\[
+\frac{dI_{ij}}{dt} = g_{ij} m_{ji} I_{ii} - r_{ij} I_{ij} + \sum_{k=1}^{n} \kappa_j \beta_{ikj} \frac{S_{ij} I_{kj}}{N_{pj}} - (\gamma + d) I_{ij}
+\]
+
+
+
+\section{Assumptions}
+Aside from the assumptions made in the original SIS model, we also make the following assumptions, for 2 cities:
+\begin{itemize}
+
+    \item The return rate $r_{ij}$ is constant for all $i$ ($r_{12} = r_{21} = r$).
+    \item The travel rate $g_{ij}$ is constant for all $i$ ($g_{12} = g_{21} = g$).
+    \item The death and birth rate is 0.
+    \item The fraction of people going from city 1 to city 2 is the same as the fraction of people going from city 2 to city 1. $m_{12} = m_{21} = m = 1$.
+    \item The average contacts in any city is the same. $k_i = k$ for all $i$.
+    \item The infection rate is the same for all cities. $\beta_{ikj} = \beta$ for all $i, k, j$.
+\end{itemize}
+
+\section{SIR Model}
+The SIR model would have the following changes:
+\begin{itemize}
+    \item In the SIS model, each $S_{ij}$ has a $\gamma I_{ij}$ term in to it. This term is not present in the SIR model.
+    \item There are $n^2$ more equations, as there are now $R_{ij}$ terms to consider. These are detailed below.
+\end{itemize}
+
+The SIR model would have the following equations:
+
+\begin{align*}
+\frac{dR_{ii}}{dt} &= r\sum_{\substack{k=1 \\ k\neq i}}^{n} R_{ik} - gR_{ii} + \gamma I_{ii} \\
+\frac{dR_{ij}}{dt} &= gR_{ii} - rR_{ij} + \gamma I_{ij} \hspace{0.2in} (where \ i \neq j) \\
+\end{align*}
+
+
+\section{2 City SIS Model}
+With the above assumptions, we have the following equations:
+
+
+\begin{align*}
+\frac{dS_{11}}{dt} &= rS_{12} - g S_{11} - \frac{\kappa \beta S_{11}}{N_1^p} (I_{11} + I_{21}) + \gamma I_{11} \\
+\frac{dS_{22}}{dt} &= rS_{21} - g S_{22} - \frac{\kappa \beta S_{22}}{N_2^p} (I_{12} + I_{22}) + \gamma I_{22} \\
+\frac{dS_{12}}{dt} &= gS_{11}-rS_{12}-\frac{\kappa \beta S_{12}}{N_2^p} (I_{12} + I_{22}) + \gamma I_{12} \\
+\frac{dS_{21}}{dt} &= gS_{22}-rS_{21}-\frac{\kappa \beta S_{21}}{N_1^p} (I_{11} + I_{21}) + \gamma I_{21} \\
+\frac{dI_{11}}{dt} &= r I_{12} - g I_{11} + \frac{\kappa \beta S_{11}}{N_1^p} (I_{11} + I_{21}) - \gamma I_{11} \\
+\frac{dI_{22}}{dt} &= rI_{21} - g I_{22} + \frac{\kappa \beta S_{22}}{N_2^p} (I_{22} + I_{12}) - \gamma I_{22} \\
+\frac{dI_{12}}{dt} &= gI_{11}-rI_{12}+\frac{\kappa \beta S_{12}}{N_2^p} (I_{12} + I_{22}) - \gamma I_{12} \\
+\frac{dI_{21}}{dt} &= gI_{22}-rI_{21}+\frac{\kappa \beta S_{21}}{N_1^p} (I_{11} + I_{21}) - \gamma I_{21}
+\end{align*}
+
+\section{2 City SIR Model}
+With the above assumptions, we have the following equations:
+
+\begin{align*}
+\frac{dS_{11}}{dt} &= rS_{12} - g S_{11} - \frac{\kappa \beta S_{11}}{N_1^p} (I_{11} + I_{21})  \\
+\frac{dS_{22}}{dt} &= r S_{21} - g S_{22} - \frac{\kappa \beta S_{22}}{N_2^p} (I_{12} + I_{22}) \\
+\frac{dS_{12}}{dt} &= gS_{11}-rS_{12}-\frac{\kappa \beta S_{12}}{N_2^p} (I_{12} + I_{22}) \\
+\frac{dS_{21}}{dt} &= gS_{22}-rS_{21}-\frac{\kappa \beta S_{21}}{N_1^p} (I_{11} + I_{21}) \\
+\frac{dI_{11}}{dt} &= r I_{12} - g I_{11} + \frac{\kappa \beta S_{11}}{N_1^p} (I_{11} + I_{21}) - \gamma I_{11} \\
+\frac{dI_{22}}{dt} &= r I_{21} - g I_{22} + \frac{\kappa \beta S_{22}}{N_2^p} (I_{22} + I_{12}) - \gamma I_{22} \\
+\frac{dI_{12}}{dt} &= gI_{11}-rI_{12}+\frac{\kappa \beta S_{12}}{N_2^p} (I_{12} + I_{22}) - \gamma I_{12} \\
+\frac{dI_{21}}{dt} &= gI_{22}-rI_{21}+\frac{\kappa \beta S_{21}}{N_1^p} (I_{11} + I_{21}) - \gamma I_{21} \\
+\frac{dR_{11}}{dt} &= rR_{12} - gR_{11} + \gamma I_{11} \\
+\frac{dR_{22}}{dt} &= rR_{21} - gR_{22} + \gamma I_{22} \\
+\frac{dR_{12}}{dt} &= gR_{11} - rR_{12} + \gamma I_{12} \\
+\frac{dR_{21}}{dt} &= gR_{22} - rR_{21} + \gamma I_{21}
+\end{align*}
+
+
+\section{Next-Generation Method for Two-City SIR Model}
+
+The next-generation method is used to calculate the basic reproduction number ($R_0$) for epidemiological models. For the two-city SIR model, we follow these steps:
+
+\subsection{Model Setup}
+
+Consider a two-city SIR model with travel between cities. Let $S_i$, $I_i$, and $R_i$ represent the susceptible, infected, and recovered populations in city $i$, respectively.
+
+\subsection{Disease-Free Equilibrium (DFE)}
+
+At the DFE, we have:
+
+\begin{align*}
+S_{11} &= \frac{N}{1 + s}, & S_{12} &= \frac{sN}{1 + s} \\
+S_{21} &= \frac{sN}{1 + s}, & S_{22} &= \frac{N}{1 + s}
+\end{align*}
+
+where $N$ is the total population and $s = \frac{g}{r}$ is the ratio of travel rate to return rate.
+
+\subsection{Next-Generation Matrices}
+
+We construct two matrices, $F$ and $V$:
+
+\begin{itemize}
+    \item $F$: represents new infections
+    \item $V$: represents transitions between compartments
+\end{itemize}
+
+For our model:
+
+\begin{equation*}
+F = \begin{bmatrix}
+a & 0 & 0 & a \\
+0 & b & b & 0 \\
+0 & c & c & 0 \\
+d & 0 & 0 & d
+\end{bmatrix}
+\end{equation*}
+
+where $a = \beta S_{11}/N$, $b = \beta S_{22}/N$, $c = \beta S_{12}/N$, and $d = \beta S_{21}/N$.
+
+\begin{equation*}
+V = \begin{bmatrix}
+g + \gamma & 0 & -r & 0 \\
+0 & g + \gamma & 0 & -r \\
+-g & 0 & r + \gamma & 0 \\
+0 & -g & 0 & g + \gamma
+\end{bmatrix}
+\end{equation*}
+
+\subsection{Next-Generation Matrix $K$}
+
+The next-generation matrix $K$ is computed as:
+
+\begin{equation*}
+K = F V^{-1}
+\end{equation*}
+
+\subsection{Basic Reproduction Number $R_0$}
+
+$R_0$ is the spectral radius (largest absolute eigenvalue) of $K$:
+
+\begin{equation*}
+R_0 = \rho(K) = \max(|\lambda_i|)
+\end{equation*}
+
+where $\lambda_i$ are the eigenvalues of $K$.
+
+\subsection{Interpretation}
+
+$R_0$ represents the average number of secondary infections caused by a single infected individual in a completely susceptible population. If $R_0 > 1$, the disease can spread in the population; if $R_0 < 1$, the disease will die out.
+
+
+\end{document}
